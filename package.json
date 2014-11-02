@@ -4,7 +4,7 @@
   "description": "dat import for allwise catalog stripe 82",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gunzip | csv-parser --headers=$(cat columns.tsv) --separator=\"|\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/maxogden/dat-wise-stripe-82/issues"
   },
-  "homepage": "https://github.com/maxogden/dat-wise-stripe-82"
+  "homepage": "https://github.com/maxogden/dat-wise-stripe-82",
+  "dependencies": {
+    "csv-parser": "^1.4.6"
+  }
 }
