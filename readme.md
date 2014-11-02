@@ -17,3 +17,9 @@ notes:
   - `-1.27° < dec < +1.27° && 306° < ra < 62`
   - then we know we only have data in stripe 82
 
+
+- import scripts:
+
+```
+csv-parser 100k.csv --headers=$(cat columns.tsv) --separator="|" | jsonmap "{ra: +this.ra, dec: +this.dec, key: this.source_id}" | node index.js
+```
