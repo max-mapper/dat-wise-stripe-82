@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/maxogden/dat-wise-stripe-82",
   "dependencies": {
-    "csv-parser": "^1.4.6"
+    "csv-parser": "^1.4.6",
+    "ndjson": "^1.2.3",
+    "ngeohash": "^0.6.0",
+    "through2": "^0.6.3"
   }
 }

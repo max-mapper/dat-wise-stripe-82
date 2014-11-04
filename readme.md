@@ -21,5 +21,5 @@ notes:
 - import scripts:
 
 ```
-cat wise-allwise-cat-part25.gz | gunzip | csv-parser --headers=$(cat columns.tsv) --separator="|" | jsonmap "{ra: +this.ra, dec: +this.dec, key: this.source_id}" | jsonfilter --match="(306 < this.ra < 360 && 0 < this.ra < 62) && (-1.27 < this.dec < 1.27)" | node index.js
+cat wise-allwise-cat-part25.gz | gunzip | csv-parser --headers=$(cat columns.tsv) --separator="|" | jsonmap "{ra: +this.ra, dec: +this.dec, key: this.source_id}" | jsonfilter --match="(306 < this.ra && this.ra < 360 && 0 < this.ra < 62) && (-1.27 < this.dec && this.dec < 1.27)" | node index.js
 ```
