@@ -1,14 +1,29 @@
-var geohash = require('ngeohash')
+var request = require('request')
+var url = require('url')
 var ndjson = require('ndjson')
+var geohash = require('ngeohash')
 var through = require('through2')
 var Dat = require('dat')
 
-var dat = Dat('./data', function(err) {
-  if (err) throw err
-  
-  var bbs = geohash.bboxes(45.3550281, -1.3792853, 45.5066702, -1.3257992, 6)
-  console.log(bbs)
-})
+var geohashQueryStream = require('./ranges')
 
+var query = process.argv[2]
+var precision = +(process.argv[3] || 3)
+if (precision > 7) exit()
+if (!query) exit()
+var args = query.split(',')
+if (args.length !== 4) exit()
 
-// {"ra":45.3550281,"dec":-1.3792853,"key":"gbp408eshqÿ0453m016_ac51-029590","version":1}
+// convert ra -> longitude
+args[0] -= 180
+args[2] -= 180
+
+args.push(precision)
+var hashes = geohash.bboxes.apply(null, args)
+console.log('Querying', hashes.length, 'geohash regions')
+var ranges = geohashQueryStream(hashes, 'http://localhost:6461')
+
+function exit() {
+  console.error('Usage: llRA,llDEC,urRA,urDEC <optional precision of 7 or lower>')
+  process.exit(1)
+}
